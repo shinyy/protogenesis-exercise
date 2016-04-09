@@ -34,3 +34,18 @@ a:link, a:visited {
 	left: 0px;
 	opacity: 1;
 }
+#box3{
+	width: 500px;
+	height: 300px;
+	overflow: hidden;
+}
+#box3 ul{
+	position: relative;
+	width: 2000px;
+	left: 0px;
+}
+#box3 li{
+	width:500px;
+	height:300px;
+	
+}

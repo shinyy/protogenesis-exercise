@@ -14,25 +14,83 @@ window.onload=function(){
 			
 		},1)
 	};
-	box.onclick=function(){move()};
+	box.onclick=function(){
+			move();
+			
+	};
 	
 	//消失
-	var box2=document.getElementById("box2");
-	box2.style.opacity=1;
-	console.log(box2.style.width);
-	var speed2=0.1;
-	var mytime2=null;
-	var fade=function(){
-		clearInterval(mytime2);
-		mytime2=setInterval(function(){
-			if(box2.style.opacity>0){
-				box2.style.opacity-=speed2;
-			};
+//	var box2=document.getElementById("box2");
+//	box2.style.opacity=1;
+//	console.log(box2.style.width);
+//	var speed2=0.1;
+//	var mytime2=null;
+//	var fade=function(){
+//		clearInterval(mytime2);
+//		mytime2=setInterval(function(){
+//			if(box2.style.opacity>0){
+//				box2.style.opacity-=speed2;
+//			};
+//		},10);
+//	};
+//	box2.onclick=function(){
+//		fade();
+//			console.log(box2.style.width);
+//	}
+	
+	function fadeDom(){};
+	fadeDom.prototype={
+		box:null,
+		opacity:function(){
+			this.box.style.opacity=1;
+		},
+		speed:0.1,
+		mytime:null,
+		fadeout:function(){
+			var that=this;
+			clearInterval(this.mytime);
+			mytime=setInterval(function(){
+				if(that.box.style.opacity>0){
+					that.box.style.opacity-=that.speed;
+				};
+			},10);
+		},
+	};
+	var f1=new fadeDom();
+	f1.box=document.getElementById("box2");
+	f1.opacity();
+	f1.box.onclick=function(){
+			f1.fadeout();
+		
+	};
+	
+	//轮播
+	var box3=document.getElementById("box3");
+	var oul=box3.getElementsByTagName("ul")[0];
+	var liNum=oul.getElementsByTagName("li").length;
+	var liW=oul.getElementsByTagName("li")[0].offsetWidth;
+	var clickNum=0;
+	var speed3=0;
+	var mytime3=null;
+	
+	oul.appendChild(oul.getElementsByTagName("li")[0].cloneNode(true))
+	function next(){
+		if(clickNum==liNum){
+			clickNum=0;
+		}else{
+			clickNum++;
+		};
+		clearInterval(mytime);
+		mytime=setInterval(function(){
+			if(oul.offsetLeft>-clickNum*liW){
+					speed3+=20;
+					oul.style.left=-speed3+"px";
+					
+			}
 		},10);
 	};
-	box2.onclick=function(){
-		fade();
-			console.log(box2.style.width);
-	}
+	document.getElementsByClassName("next")[0].onclick=function(){
+		next();
+	};
 }
 	
