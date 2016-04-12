@@ -73,24 +73,57 @@ window.onload=function(){
 	var speed3=0;
 	var mytime3=null;
 	
-	oul.appendChild(oul.getElementsByTagName("li")[0].cloneNode(true))
-	function next(){
-		if(clickNum==liNum){
-			clickNum=0;
-		}else{
-			clickNum++;
-		};
-		clearInterval(mytime);
-		mytime=setInterval(function(){
+	oul.appendChild(oul.getElementsByTagName("li")[0].cloneNode(true));
+	function nextMove(){
+		clickNum++;
+		clearInterval(mytime3);
+		mytime3=setInterval(function(){
 			if(oul.offsetLeft>-clickNum*liW){
 					speed3+=20;
 					oul.style.left=-speed3+"px";
-					
-			}
+			};
 		},10);
 	};
-	document.getElementsByClassName("next")[0].onclick=function(){
-		next();
+	function prevMove(){
+		clickNum--;
+		clearInterval(mytime3);
+		mytime3=setInterval(function(){
+			if(oul.offsetLeft<-clickNum*liW){
+				speed3-=20;
+				oul.style.left=-speed3+"px";
+			};
+		},10);
 	};
+	
+
+	function now(){
+			console.log(oul.offsetLeft,oul.offsetWidth-liW);
+	}
+	document.getElementsByClassName("next")[0].onclick=function(){
+//		if(clickNum<liNum){
+//			nextMove();
+//		}else{
+//			oul.style.left=0;
+//			clickNum=0
+//			nextMove();
+//		}
+		if(oul.offsetWidth-liW!=liW*clickNum){
+			nextMove();
+			console.log(oul.offsetWidth-liW,liW*clickNum)
+		}else{
+			//oul.style.left=0+"px";
+		}
+		
+		
+	};
+	
+	document.getElementsByClassName("prev")[0].onclick=function(){
+
+		if(oul.offsetLeft!=0){
+			prevMove();
+		}
+	}
+	
+	
 }
 	
